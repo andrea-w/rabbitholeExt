@@ -1,0 +1,21 @@
+  {
+    "name": "RabbitHole Round 1",
+    "version": "1.0",
+    "description": "Build an Extension!",
+    "browser_action": {
+        "default_icon": {
+            "16": "images/icon16.jpg"
+        },
+        "default_title": "RabbitHole"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "permissions": [
+        "history", 
+        "tabs",
+        "webNavigation"
+    ],
+    "manifest_version": 2
+  }
