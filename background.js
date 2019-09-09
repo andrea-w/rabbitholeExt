@@ -126,7 +126,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         parent = previousUrl;
 
         chrome.history.getVisits(details, function(results) {
-            if (results[0].transition == 'link' || results[0].transition == 'keyword_generated') {
+            if (results[0].transition == 'link' || results[0].transition == 'keyword_generated' || results[0].transition == 'typed') {
                 addNewNode(tab, results[0], parent);
             }
         });
