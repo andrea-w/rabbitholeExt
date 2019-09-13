@@ -1,0 +1,22 @@
+{
+  "name": "rabbitholeext",
+  "version": "1.0.0",
+  "description": "Chrome extension to track URLs visited",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrea-w/rabbitholeExt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrea-w/rabbitholeExt/issues"
+  },
+  "homepage": "https://github.com/andrea-w/rabbitholeExt#readme",
+  "dependencies": {
+    "react-sidebar": "^3.0.2"
+  }
+}

@@ -15,7 +15,8 @@
     "permissions": [
         "history", 
         "tabs",
-        "webNavigation"
+        "webNavigation",
+        "*://*/*"
     ],
     "manifest_version": 2
   }

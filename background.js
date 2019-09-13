@@ -1,5 +1,4 @@
 
-
 // https://code.tutsplus.com/articles/data-structures-with-javascript-tree--cms-23393
 class Node {
     constructor(pageData) {
@@ -99,6 +98,14 @@ function findIndex(arr, data) {
     return index;
 }
 
+previousUrl = '';
+
+chrome.webNavigation.onBeforeNavigate.addListener(function(object) {
+    chrome.tabs.get(object.tabId, function(tab) {
+        previousUrl = tab.url;
+    });
+});
+
 chrome.tabs.onCreated.addListener(function(tab) {
     var now = new Date();
     var result = {
@@ -109,14 +116,12 @@ chrome.tabs.onCreated.addListener(function(tab) {
 });
 
 
-chrome.browserAction.onClicked.addListener(function() {
+chrome.browserAction.onClicked.addListener(tab => {
+    console.log('Browser action triggered');
     initializeTree();
-});
-
-chrome.webNavigation.onBeforeNavigate.addListener(function(object) {
-    chrome.tabs.get(object.tabId, function(tab) {
-        previousUrl = tab.url;
-    });
+    chrome.tabs.executeScript(tab.id, {
+        file: 'index.js'
+    })
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
@@ -126,8 +131,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         parent = previousUrl;
 
         chrome.history.getVisits(details, function(results) {
-            if (results[0].transition == 'link' || results[0].transition == 'keyword_generated' || results[0].transition == 'typed') {
-                addNewNode(tab, results[0], parent);
+            if (typeof results[0] !== 'undefined') {
+                if (results[0].transition == 'link' || results[0].transition == 'keyword_generated' || results[0].transition == 'typed') {
+                    addNewNode(tab, results[0], parent);
+                }
             }
         });
     }
@@ -152,7 +159,7 @@ function initializeTree() {
 }
 
 function addNewNode(page, visit, parent) {
-    if (tree == undefined) {
+    if (typeof tree == 'undefined') {
         initializeTree();
     }
     else {
@@ -168,4 +175,3 @@ function addNewNode(page, visit, parent) {
         console.log(tree);
     }
 }
-
